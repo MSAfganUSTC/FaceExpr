@@ -91,7 +91,7 @@ image = pipe(prompt=prompt, num_inference_steps=20).images[0]
 image
 ```
 Output
-![Generated Example](images/output.jpg)
+![Generated Example](images/output.png)
 ## Results
 
 FaceExpr generates high-quality images with diverse facial expressions while preserving identity. Below are some example outputs:
@@ -100,7 +100,7 @@ FaceExpr generates high-quality images with diverse facial expressions while pre
 - **Environmental Diversity**: The model can generate expressive faces in different scenes, such as various lighting conditions and environmental settings.
 
 ### Example Output
-![Generated Example](images/example_output.png)
+![Generated Example](images/example_output.jpg)
 
 ## Applications
 
