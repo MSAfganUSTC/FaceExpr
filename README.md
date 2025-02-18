@@ -100,7 +100,7 @@ FaceExpr generates high-quality images with diverse facial expressions while pre
 - **Environmental Diversity**: The model can generate expressive faces in different scenes, such as various lighting conditions and environmental settings.
 
 ### Example Output
-![Generated Example](images/example_output.jpg)
+![Generated Example](images/example_output.png)
 
 ## Applications
 
