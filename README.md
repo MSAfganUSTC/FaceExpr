@@ -40,13 +40,36 @@ pip install -r requirements.txt
 The dependencies include PyTorch, Hugging Face Transformers, and other necessary packages.
 
 ## Usage
+### 1. Generating Expressions
 
-### 1. Fine-Tuning the Model
+To generate facial images for feature extraction and expression Guidence, use the following command:
+
+```bash
+python Expression_Feature_Extraction_Network.py --model <path_to_trained_model> --expression <desired_expression> --output_dir <output_images>
+```
+### 2. Fine-Tuning the Model
 
 Fine-tune the model for person-specific facial expression generation by following the steps below. You'll need to have images of the person you'd like to train on.
 
 ```bash
-python train.py --input_dir <path_to_images> --output_dir <output_model_path>
+!accelerate launch train_FaceExpr_afgan.py \
+  --pretrained_model_name_or_path="$MODEL_NAME" \
+  --pretrained_vae_model_name_or_path="/home/afgan/stable_diffusion_weights/madebyollinsdxl-vae-fp16-fix" \
+  --dataset_name="$DATA_DIR" \
+  --output_dir="$OUTPUT_DIR" \
+  --mixed_precision="fp16" \
+  --instance_prompt="a photo of e_w4 woman" \
+  --resolution=512 \
+  --train_batch_size=1 \
+  --gradient_accumulation_steps=3 \
+  --gradient_checkpointing \
+  --learning_rate=1e-4 \
+  --snr_gamma=5.0 \
+  --lr_scheduler="constant" \
+  --lr_warmup_steps=0 \
+  --use_8bit_adam \
+  --max_train_steps=400 \
+  --seed=0
 ```
 
 ### 2. Generating Expressions
@@ -63,9 +86,12 @@ The model can generate various expressions like happiness, sadness, anger, etc.,
 Here’s an example of generating an image with the "happy" expression for a specific subject:
 
 ```bash
-python generate.py --model ./models/subject_model --expression happy --output_dir ./generated_images/
+prompt = "A front photo of e_w4 woma, happy, wearing blue glasse."
+image = pipe(prompt=prompt, num_inference_steps=20).images[0]
+image
 ```
-
+Output
+![Generated Example](images/output.jpg)
 ## Results
 
 FaceExpr generates high-quality images with diverse facial expressions while preserving identity. Below are some example outputs:
